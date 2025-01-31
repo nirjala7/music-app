@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:musicapp/signin_page.dart';
-import 'package:musicapp/homepage.dart';
+import 'homepage.dart';
+import 'signin_page.dart'; // Import the SignIn page
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
-      ),
-      home: LoginPage(),
-    );
-  }
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class LoginPage extends StatelessWidget {
+class _LoginPageState extends State<LoginPage> {
+  bool _rememberMe = false;
+  final _emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -67,6 +59,7 @@ class LoginPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   prefixIcon: Icon(Icons.email, color: textColor),
@@ -109,8 +102,16 @@ class LoginPage extends StatelessWidget {
               child: Row(
                 children: [
                   Checkbox(
-                    value: false,
-                    onChanged: (bool? value) {},
+                    value: _rememberMe,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _rememberMe = value ?? false;
+                        if (_rememberMe) {
+                          // Save email for later (you can use SharedPreferences for persistence)
+                          print('Email saved: ${_emailController.text}');
+                        }
+                      });
+                    },
                     activeColor: buttonColor,
                   ),
                   Text(
@@ -187,7 +188,10 @@ class LoginPage extends StatelessWidget {
                     child: IconButton(
                       icon: Image.asset('lib/Images/google.png'),
                       onPressed: () {
-                        // Google sign-in functionality here
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                        );
                       },
                     ),
                   ),
@@ -198,7 +202,10 @@ class LoginPage extends StatelessWidget {
                     child: IconButton(
                       icon: Image.asset('lib/Images/facebook.png'),
                       onPressed: () {
-                        // Facebook sign-in functionality here
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                        );
                       },
                     ),
                   ),
@@ -209,7 +216,7 @@ class LoginPage extends StatelessWidget {
             Center(
               child: GestureDetector(
                 onTap: () {
-                  // Navigate to Sign Up page
+                  // Navigate to SignIn page
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => SignIn()),

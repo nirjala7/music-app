@@ -1,82 +1,11 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SearchPage(),
-    );
-  }
-}
-
 class SearchPage extends StatelessWidget {
-  // Function to build a clickable cell for genres and recently searched items
-  Widget buildClickableCell(
-      BuildContext context, String imagePath, String genre, Color color) {
-    return GestureDetector(
-      onTap: () {
-        // Navigate to Details Page on tap
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Blank_Page(),
-          ),
-        );
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: color, // Set the background color dynamically
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          children: [
-            // Text and label on the left
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  genre, // Genre name
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 3.0,
-                        color: Colors.black,
-                        offset: Offset(1.5, 1.5),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            // Image on the right
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  imagePath, // Unique image for each genre
-                  width: 80,
-                  height: 80,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black, // Set background to black
+      backgroundColor:
+          Theme.of(context).scaffoldBackgroundColor, // Dynamic background color
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(80),
         child: AppBar(
@@ -95,22 +24,19 @@ class SearchPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Logo on the left
-                  Image.asset(
-                    "lib/Images/logo.png", // Replace with your logo path
-                    width: 100,
-                    height: 50,
-                  ),
-                  // "Search" text in the center
+                  Image.asset("lib/Images/logo.png", width: 100, height: 50),
                   Text(
                     "Search",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.color, // Dynamic text color
                     ),
                   ),
-                  SizedBox(width: 40), // Space to balance layout
+                  SizedBox(width: 40),
                 ],
               ),
             ),
@@ -123,20 +49,14 @@ class SearchPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Search Bar with Search Icon
               TextField(
-                style: TextStyle(
-                    color: Colors.black), // Set typed text color to dark
+                style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor:
-                      Colors.white, // Background color of the search field
+                  fillColor: Colors.white,
                   hintText: 'Search here...',
-                  hintStyle: TextStyle(color: Colors.grey), // Placeholder color
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.grey, // Icon color
-                  ),
+                  hintStyle: TextStyle(color: Colors.grey),
+                  prefixIcon: Icon(Icons.search, color: Colors.grey),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
@@ -146,19 +66,18 @@ class SearchPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-
-              // Title for Recently Searched
               Text(
                 "Recently Searched",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.color, // Dynamic text color
                 ),
               ),
               SizedBox(height: 16),
-
-              // Recently Searched Containers
               GridView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -174,43 +93,37 @@ class SearchPage extends StatelessWidget {
                     "lib/Images/pic1.jpg",
                     "lib/Images/pic2.jpg",
                     "lib/Images/pic3.jpg",
-                    "lib/Images/pic4.jpg",
+                    "lib/Images/pic4.jpg"
                   ];
                   List<String> genres = [
                     'Jazz',
                     'Classic',
                     'Hip-Hop',
-                    'Electro',
+                    'Electro'
                   ];
                   List<Color> colors = [
                     Colors.redAccent,
                     Colors.greenAccent,
                     Colors.blueAccent,
-                    Colors.orangeAccent,
+                    Colors.orangeAccent
                   ];
-
-                  return buildClickableCell(
-                    context,
-                    images[index],
-                    genres[index],
-                    colors[index], // Pass different color to each cell
-                  );
+                  return _buildClickableCell(
+                      context, images[index], genres[index], colors[index]);
                 },
               ),
               SizedBox(height: 20),
-
-              // Title for Genre Section
               Text(
                 "Genre",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.color, // Dynamic text color
                 ),
               ),
               SizedBox(height: 16),
-
-              // Genre Containers with additional rows
               GridView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -220,7 +133,7 @@ class SearchPage extends StatelessWidget {
                   mainAxisSpacing: 15.0,
                   childAspectRatio: 1.5,
                 ),
-                itemCount: 7, // Increased to 7 to add 3 more rows
+                itemCount: 7,
                 itemBuilder: (context, index) {
                   List<String> genreImages = [
                     "lib/Images/pic5.jpg",
@@ -229,7 +142,7 @@ class SearchPage extends StatelessWidget {
                     "lib/Images/pic8.jpg",
                     "lib/Images/pic9.jpg",
                     "lib/Images/pic10.jpg",
-                    "lib/Images/pic11.jpg",
+                    "lib/Images/pic11.jpg"
                   ];
                   List<String> genreList = [
                     'Rock',
@@ -238,7 +151,7 @@ class SearchPage extends StatelessWidget {
                     'Classi',
                     'R&Bs',
                     'Blues',
-                    'Soul',
+                    'Soul'
                   ];
                   List<Color> genreColors = [
                     Colors.redAccent,
@@ -247,35 +160,79 @@ class SearchPage extends StatelessWidget {
                     Colors.greenAccent,
                     Colors.blueAccent,
                     Colors.cyanAccent,
-                    Colors.orangeAccent,
+                    Colors.orangeAccent
                   ];
-
-                  return buildClickableCell(
-                    context,
-                    genreImages[index],
-                    genreList[index],
-                    genreColors[index], // Pass different color to each genre
-                  );
+                  return _buildClickableCell(context, genreImages[index],
+                      genreList[index], genreColors[index]);
                 },
               ),
-              SizedBox(height: 20),
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget _buildClickableCell(
+      BuildContext context, String imagePath, String genre, Color color) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BlankPage(title: genre)));
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  genre,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 3.0,
+                        color: Colors.black,
+                        offset: Offset(1.5, 1.5),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(imagePath,
+                    width: 80, height: 80, fit: BoxFit.cover),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-class Blank_Page extends StatelessWidget {
+class BlankPage extends StatelessWidget {
+  final String title;
+  BlankPage({required this.title});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Blank Page'),
-      ),
+      appBar: AppBar(title: Text(title)),
       body: Center(
-        child: Text('This is a blank page'),
+        child: Text('$title Page (Under Construction)',
+            style: TextStyle(fontSize: 18)),
       ),
     );
   }

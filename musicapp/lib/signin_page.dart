@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'loginpage.dart'; // Import the LoginPage.dart file
+import 'loginpage.dart';
+import 'homepage.dart'; // Import the HomePage.dart file
 
 class SignIn extends StatelessWidget {
   @override
@@ -15,7 +16,7 @@ class SignIn extends StatelessWidget {
     final signUpColor = Color(0xFF7CEEFF);
 
     return Scaffold(
-      backgroundColor: backgroundColor, // Background color for the screen
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -24,23 +25,20 @@ class SignIn extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Padding above logo
-                SizedBox(
-                    height: screenHeight * 0.1), // Increased padding for logo
+                SizedBox(height: screenHeight * 0.1),
+                // Logo
                 Container(
                   height: 120.0,
-                  width: screenWidth *
-                      0.6, // Decrease width to add more side padding
+                  width: screenWidth * 0.6,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(
-                          'lib/Images/logo.png'), // Replace with actual image
+                      image: AssetImage('lib/Images/logo.png'),
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                SizedBox(height: screenHeight * 0.05), // Padding below logo
-
+                SizedBox(height: screenHeight * 0.05),
                 // "Let's get you in" Text
                 Text(
                   'Let\'s get you in',
@@ -51,30 +49,31 @@ class SignIn extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: screenHeight * 0.05), // Spacer
-
+                SizedBox(height: screenHeight * 0.05),
                 // Continue with Google Button
                 SizedBox(
-                  width: screenWidth -
-                      40, // Full width with padding (20px on each side)
-                  height: screenHeight * 0.06, // Button height
+                  width: screenWidth - 40,
+                  height: screenHeight * 0.06,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Google sign-in functionality here
+                      // Navigate to HomePage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: buttonColor, // Background color
+                      backgroundColor: buttonColor,
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(30), // Border radius
+                        borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'lib/Images/google.png', // Smaller Google icon
-                          height: 24.0, // Adjust the size of the icon
+                          'lib/Images/google.png',
+                          height: 24.0,
                         ),
                         SizedBox(width: 10),
                         Text(
@@ -85,30 +84,31 @@ class SignIn extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 10), // Spacer
-
+                SizedBox(height: 10),
                 // Continue with Facebook Button
                 SizedBox(
-                  width: screenWidth -
-                      40, // Full width with padding (20px on each side)
-                  height: screenHeight * 0.06, // Button height
+                  width: screenWidth - 40,
+                  height: screenHeight * 0.06,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Facebook sign-in functionality here
+                      // Navigate to HomePage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: buttonColor, // Background color
+                      backgroundColor: buttonColor,
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(30), // Border radius
+                        borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'lib/Images/facebook.png', // Smaller Facebook icon
-                          height: 24.0, // Adjust the size of the icon
+                          'lib/Images/facebook.png',
+                          height: 24.0,
                         ),
                         SizedBox(width: 10),
                         Text(
@@ -119,8 +119,7 @@ class SignIn extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: screenHeight * 0.03), // Spacer
-
+                SizedBox(height: screenHeight * 0.03),
                 // Horizontal line with "or" text
                 Row(
                   children: [
@@ -138,29 +137,23 @@ class SignIn extends StatelessWidget {
                     Expanded(child: Divider(color: textColor)),
                   ],
                 ),
-                SizedBox(height: screenHeight * 0.03), // Spacer
-
+                SizedBox(height: screenHeight * 0.03),
                 // Log in with a password button
                 SizedBox(
-                  width: screenWidth -
-                      40, // Full width with padding (20px on each side)
-                  height: screenHeight * 0.06, // Button height
+                  width: screenWidth - 40,
+                  height: screenHeight * 0.06,
                   child: ElevatedButton(
                     onPressed: () {
                       // Navigate to LoginPage
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              LoginPage(), // Navigate to LoginPage.dart
-                        ),
+                        MaterialPageRoute(builder: (context) => LoginPage()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: blueButtonColor, // Background color
+                      backgroundColor: blueButtonColor,
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(30), // Border radius
+                        borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                     child: Text(
@@ -169,8 +162,7 @@ class SignIn extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: screenHeight * 0.05), // Spacer
-
+                SizedBox(height: screenHeight * 0.05),
                 // Don't have an account? Sign Up text
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -184,7 +176,10 @@ class SignIn extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // Navigate to Sign Up page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                        );
                       },
                       child: Text(
                         'Sign Up',

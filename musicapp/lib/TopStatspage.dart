@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:musicapp/homepage.dart';
+import 'homepage.dart';
 
 class TopStatsPage extends StatefulWidget {
   @override
